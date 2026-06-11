@@ -9,241 +9,227 @@ st.set_page_config(
     page_title="Knowledge Vault",
     page_icon="✦",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 html, body, [class*="css"] { font-family: 'Outfit', sans-serif; }
 #MainMenu, footer, header { visibility: hidden; }
-[data-testid="collapsedControl"] { color: #c4b5fd !important; }
-
-/* ── Palette
-   bg-deep    : #1a0533   deep purple-black
-   bg-card    : #230a42   slightly lighter purple
-   bg-raised  : #2d1057   raised surfaces
-   border     : #4a1f8a   violet border
-   accent     : #9333ea   bright purple
-   accent-lt  : #c4b5fd   soft lavender
-   glow       : #7c3aed   medium violet
-   text       : #f3e8ff   near-white lavender
-   text-dim   : #a78bfa   muted lavender
-   text-muted : #7c5cbf   very muted
-── */
 
 .stApp {
     background: linear-gradient(160deg, #1a0533 0%, #0f0221 50%, #1a0533 100%);
     min-height: 100vh;
 }
 
+/* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background: #140328;
-    border-right: 1px solid #4a1f8a;
+    background: #140328 !important;
+    border-right: 1px solid #4a1f8a !important;
+    width: 260px !important;
 }
-[data-testid="stSidebar"] * { color: #f3e8ff !important; }
+[data-testid="stSidebar"] > div { padding-top: 2rem; }
+
+.sidebar-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #f3e8ff;
+    padding: 0 1rem 1.5rem;
+    letter-spacing: -0.01em;
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #9333ea, #e879f9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.sidebar-divider {
+    height: 1px;
+    background: linear-gradient(90deg, #4a1f8a, transparent);
+    margin: 0 1rem 1.5rem;
+}
+.sidebar-section {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #6d28d9;
+    text-transform: uppercase;
+    padding: 0 1.2rem 0.6rem;
+}
+
+/* Sidebar radio buttons */
+[data-testid="stSidebar"] .stRadio > div {
+    gap: 0.3rem;
+}
+[data-testid="stSidebar"] .stRadio label {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 0.7rem 1.2rem !important;
+    color: #a78bfa !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    transition: background 0.15s, color 0.15s !important;
+    width: 100% !important;
+}
+[data-testid="stSidebar"] .stRadio label:hover {
+    background: #2d1057 !important;
+    color: #f3e8ff !important;
+}
+[data-testid="stSidebar"] .stRadio label[data-checked="true"] {
+    background: #2d1057 !important;
+    color: #f3e8ff !important;
+    border-left: 3px solid #9333ea !important;
+}
 
 /* ── Hero ── */
 .hero {
-    padding: 3rem 0 0.5rem;
     text-align: center;
+    padding: 3.5rem 0 1rem;
 }
 .hero-eyebrow {
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.25em;
-    color: #9333ea;
+    color: #7c3aed;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 .hero-title {
     font-family: 'Playfair Display', serif;
     font-size: 5.5rem;
     font-weight: 900;
+    font-style: italic;
     color: #f3e8ff;
     line-height: 1.0;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.8rem;
     letter-spacing: -0.02em;
-}
-.hero-title em {
-    font-style: italic;
-    font-weight: 700;
-    background: linear-gradient(135deg, #9333ea 0%, #e879f9 50%, #c4b5fd 100%);
+    background: linear-gradient(135deg, #f3e8ff 0%, #c4b5fd 50%, #e879f9 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 .hero-sub {
     color: #a78bfa;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 300;
-    margin-top: 0.75rem;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
 }
 
-/* ── Intro box ── */
+/* ── Intro ── */
 .intro-box {
     background: linear-gradient(135deg, #2d1057 0%, #3b0f6e 100%);
     border: 1px solid #6d28d9;
-    border-radius: 20px;
-    padding: 2rem 2.5rem;
+    border-radius: 24px;
+    padding: 2.2rem 2.8rem;
     margin: 2rem auto;
-    max-width: 860px;
+    max-width: 820px;
     position: relative;
     overflow: hidden;
 }
 .intro-box::before {
-    content: '';
-    position: absolute;
-    top: -40px; right: -40px;
-    width: 160px; height: 160px;
+    content:'';
+    position:absolute;
+    top:-60px; right:-60px;
+    width:200px; height:200px;
     background: radial-gradient(circle, #9333ea22, transparent 70%);
-    border-radius: 50%;
-}
-.intro-box::after {
-    content: '';
-    position: absolute;
-    bottom: -30px; left: -30px;
-    width: 120px; height: 120px;
-    background: radial-gradient(circle, #e879f922, transparent 70%);
-    border-radius: 50%;
+    border-radius:50%;
 }
 .intro-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 900;
+    font-style: italic;
     color: #f3e8ff;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.8rem;
 }
 .intro-text {
     color: #c4b5fd;
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 0.97rem;
+    line-height: 1.85;
     font-weight: 300;
 }
 .intro-steps {
     display: flex;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    gap: 1rem;
+    margin-top: 1.8rem;
     flex-wrap: wrap;
 }
 .intro-step {
     flex: 1;
-    min-width: 160px;
+    min-width: 140px;
     background: #1a0533;
     border: 1px solid #4a1f8a;
-    border-radius: 12px;
-    padding: 1rem 1.2rem;
+    border-radius: 14px;
+    padding: 1.1rem 1rem;
     text-align: center;
 }
-.intro-step-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.4rem;
-}
-.intro-step-label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #c4b5fd;
-    letter-spacing: 0.03em;
-}
-.intro-step-desc {
-    font-size: 0.75rem;
-    color: #7c5cbf;
-    margin-top: 0.2rem;
-    font-weight: 300;
-}
+.intro-step-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.intro-step-label { font-size: 0.82rem; font-weight: 600; color: #e9d5ff; letter-spacing: 0.03em; }
+.intro-step-desc  { font-size: 0.75rem; color: #7c5cbf; margin-top: 0.25rem; font-weight: 300; }
 
-/* ── Nav icons ── */
-.nav-section {
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-    margin: 2rem 0 1.5rem;
-    flex-wrap: wrap;
-}
-.nav-icon-btn {
+/* ── Big upload button ── */
+.upload-cta-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    background: #230a42;
-    border: 1px solid #4a1f8a;
-    border-radius: 18px;
-    padding: 1.4rem 2rem;
-    cursor: pointer;
-    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s, border-color 0.2s, background 0.2s;
-    min-width: 110px;
-    text-decoration: none;
+    margin: 2.5rem 0 1rem;
 }
-.nav-icon-btn:hover {
-    transform: translateY(-8px);
-    border-color: #9333ea;
-    background: #2d1057;
-    box-shadow: 0 16px 40px #9333ea33, 0 0 0 1px #9333ea44;
-}
-.nav-icon-btn.active {
-    border-color: #9333ea;
-    background: #2d1057;
-    box-shadow: 0 0 0 2px #9333ea55;
-}
-.nav-icon {
-    font-size: 2.2rem;
-    line-height: 1;
-}
-.nav-label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #c4b5fd;
-    letter-spacing: 0.05em;
+.upload-cta-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #6d28d9;
     text-transform: uppercase;
+    margin-bottom: 1rem;
 }
 
-/* Streamlit button overrides for nav */
-div[data-testid="column"] > div > div > div > div > .stButton > button {
-    background: #230a42 !important;
-    border: 1px solid #4a1f8a !important;
-    border-radius: 18px !important;
-    padding: 1.4rem 1rem !important;
-    width: 100% !important;
-    color: #c4b5fd !important;
-    font-family: 'Outfit', sans-serif !important;
-    font-size: 0.78rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.05em !important;
-    text-transform: uppercase !important;
-    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s !important;
-    box-shadow: none !important;
-    height: auto !important;
-    line-height: 1.4 !important;
-}
-div[data-testid="column"] > div > div > div > div > .stButton > button:hover {
-    transform: translateY(-8px) !important;
-    border-color: #9333ea !important;
-    background: #2d1057 !important;
-    box-shadow: 0 16px 40px #9333ea33 !important;
-    color: #f3e8ff !important;
-}
-
-/* Primary button */
+/* The big Upload button */
+div[data-testid="stButton"] > button.upload-hero-btn,
 .stButton > button[kind="primary"] {
-    background: linear-gradient(135deg, #7c3aed, #9333ea) !important;
+    background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%) !important;
     color: #fff !important;
     border: none !important;
-    border-radius: 12px !important;
+    border-radius: 20px !important;
     font-family: 'Outfit', sans-serif !important;
-    font-weight: 600 !important;
-    font-size: 1rem !important;
-    padding: 0.65rem 2rem !important;
-    letter-spacing: 0.02em !important;
-    box-shadow: 0 4px 24px #9333ea55 !important;
-    transition: opacity 0.2s, box-shadow 0.2s, transform 0.15s !important;
+    font-weight: 700 !important;
+    font-size: 1.3rem !important;
+    padding: 1.2rem 3.5rem !important;
+    letter-spacing: 0.04em !important;
+    box-shadow: 0 8px 40px #9333ea66, 0 0 0 1px #a855f744 !important;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s !important;
+    width: auto !important;
+    min-width: 260px !important;
 }
 .stButton > button[kind="primary"]:hover {
-    opacity: 0.9 !important;
-    box-shadow: 0 8px 32px #9333ea88 !important;
-    transform: translateY(-2px) !important;
+    transform: translateY(-5px) scale(1.03) !important;
+    box-shadow: 0 16px 56px #9333ea99, 0 0 0 2px #a855f766 !important;
+}
+
+/* Secondary buttons */
+.stButton > button[kind="secondary"] {
+    background: transparent !important;
+    border: 1px solid #4a1f8a !important;
+    border-radius: 10px !important;
+    color: #a78bfa !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    transition: all 0.15s !important;
+    box-shadow: none !important;
+}
+.stButton > button[kind="secondary"]:hover {
+    border-color: #9333ea !important;
+    color: #f3e8ff !important;
+    background: #2d1057 !important;
+    box-shadow: none !important;
 }
 
 /* ── Cards ── */
@@ -254,265 +240,201 @@ div[data-testid="column"] > div > div > div > div > .stButton > button:hover {
     padding: 1.5rem 1.8rem;
     margin-bottom: 1rem;
     position: relative;
-    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s, border-color 0.2s;
     overflow: hidden;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s, border-color 0.2s;
 }
 .vault-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 4px; height: 100%;
+    content:'';
+    position:absolute;
+    top:0; left:0;
+    width:4px; height:100%;
     background: linear-gradient(180deg, #9333ea, #e879f9);
-    opacity: 0;
+    opacity:0;
     transition: opacity 0.2s;
 }
-.vault-card:hover {
-    transform: translateY(-4px);
-    border-color: #9333ea55;
-    box-shadow: 0 12px 40px #9333ea22;
-}
+.vault-card:hover { transform: translateY(-4px); border-color: #9333ea55; box-shadow: 0 12px 40px #9333ea22; }
 .vault-card:hover::before { opacity: 1; }
 
 .card-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
     font-weight: 900;
+    font-style: italic;
     color: #f3e8ff;
     margin-bottom: 6px;
 }
-.card-desc {
-    color: #a78bfa;
-    font-size: 0.88rem;
-    line-height: 1.7;
-    font-weight: 300;
-}
+.card-desc { color: #a78bfa; font-size: 0.88rem; line-height: 1.7; font-weight: 300; }
 
 /* ── Tags ── */
 .tag-subject {
     display: inline-block;
-    background: #2d1057;
-    color: #e9d5ff;
-    border: 1px solid #6d28d9;
-    border-radius: 6px;
-    padding: 3px 11px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin: 3px;
-    letter-spacing: 0.02em;
+    background: #2d1057; color: #e9d5ff; border: 1px solid #6d28d9;
+    border-radius: 6px; padding: 3px 11px; font-size: 0.75rem;
+    font-weight: 500; margin: 3px; letter-spacing: 0.02em;
 }
 .tag-skill {
     display: inline-block;
-    background: #1a0533;
-    color: #c4b5fd;
-    border: 1px solid #4a1f8a;
-    border-radius: 6px;
-    padding: 3px 11px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin: 3px;
-    letter-spacing: 0.02em;
+    background: #1a0533; color: #c4b5fd; border: 1px solid #4a1f8a;
+    border-radius: 6px; padding: 3px 11px; font-size: 0.75rem;
+    font-weight: 500; margin: 3px; letter-spacing: 0.02em;
 }
 .tag-difficulty-Beginner     { background:#0a2015; color:#6ee7b7; border:1px solid #166534; }
 .tag-difficulty-Intermediate { background:#1c1000; color:#fcd34d; border:1px solid #854d0e; }
 .tag-difficulty-Advanced     { background:#200a33; color:#e879f9; border:1px solid #6d28d9; }
 .difficulty-badge {
-    display: inline-block;
-    border-radius: 8px;
-    padding: 4px 13px;
-    font-size: 0.73rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    display: inline-block; border-radius: 8px; padding: 4px 13px;
+    font-size: 0.73rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
 }
 
-/* ── Progress bar ── */
-.bar-bg {
-    background: #2d1057;
-    border-radius: 4px;
-    height: 5px;
-    width: 100%;
-    margin-top: 6px;
-}
-.bar-fill {
-    background: linear-gradient(90deg, #7c3aed, #e879f9);
-    border-radius: 4px;
-    height: 5px;
-}
+/* ── Bars ── */
+.bar-bg { background:#2d1057; border-radius:4px; height:5px; width:100%; margin-top:6px; }
+.bar-fill { background: linear-gradient(90deg, #7c3aed, #e879f9); border-radius:4px; height:5px; }
 
-/* ── Utility ── */
+/* ── Util ── */
 .section-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: #7c5cbf;
-    text-transform: uppercase;
-    margin-bottom: 0.6rem;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em;
+    color: #7c5cbf; text-transform: uppercase; margin-bottom: 0.6rem;
 }
 .page-title {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    font-weight: 900;
-    color: #f3e8ff;
-    margin-bottom: 0.5rem;
+    font-size: 2.4rem; font-weight: 900; font-style: italic;
+    color: #f3e8ff; margin-bottom: 0.6rem;
 }
-.hint {
-    color: #a78bfa;
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-    line-height: 1.8;
-}
-.empty-state {
-    color: #4a1f8a;
-    font-size: 1rem;
-    margin-top: 3rem;
-    text-align: center;
-    font-style: italic;
-}
+.hint { color: #a78bfa; font-size: 0.95rem; margin-bottom: 1.5rem; font-weight: 300; line-height: 1.8; }
+.empty-state { color: #4a1f8a; font-size: 1rem; margin-top: 3rem; text-align: center; font-style: italic; }
 
-/* Input */
 .stTextInput > div > div > input {
-    background: #230a42 !important;
-    border: 1px solid #4a1f8a !important;
-    border-radius: 12px !important;
-    color: #f3e8ff !important;
-    font-family: 'Outfit', sans-serif !important;
-    font-size: 1rem !important;
+    background: #230a42 !important; border: 1px solid #4a1f8a !important;
+    border-radius: 12px !important; color: #f3e8ff !important;
+    font-family: 'Outfit', sans-serif !important; font-size: 1rem !important;
     padding: 0.7rem 1rem !important;
 }
-.stTextInput > div > div > input:focus {
-    border-color: #9333ea !important;
-    box-shadow: 0 0 0 3px #9333ea33 !important;
-}
+.stTextInput > div > div > input:focus { border-color: #9333ea !important; box-shadow: 0 0 0 3px #9333ea33 !important; }
 .stTextInput > div > div > input::placeholder { color: #7c5cbf !important; }
 
-/* File uploader */
 [data-testid="stFileUploader"] {
-    background: #230a42 !important;
-    border: 1px dashed #4a1f8a !important;
-    border-radius: 16px !important;
+    background: #230a42 !important; border: 1px dashed #4a1f8a !important; border-radius: 16px !important;
 }
 [data-testid="stFileUploader"]:hover { border-color: #9333ea !important; }
 
-/* Expander */
 details > summary {
-    background: #230a42 !important;
-    border: 1px solid #4a1f8a !important;
-    border-radius: 14px !important;
-    color: #f3e8ff !important;
-    font-family: 'Playfair Display', serif !important;
-    font-size: 1rem !important;
-    font-weight: 900 !important;
-    padding: 0.9rem 1.2rem !important;
+    background: #230a42 !important; border: 1px solid #4a1f8a !important;
+    border-radius: 14px !important; color: #f3e8ff !important;
+    font-family: 'Playfair Display', serif !important; font-size: 1rem !important;
+    font-weight: 900 !important; padding: 0.9rem 1.2rem !important;
 }
 details[open] > summary { border-radius: 14px 14px 0 0 !important; }
 details > div {
-    background: #1a0533 !important;
-    border: 1px solid #4a1f8a !important;
-    border-top: none !important;
-    border-radius: 0 0 14px 14px !important;
-    padding: 1rem 1.2rem !important;
+    background: #1a0533 !important; border: 1px solid #4a1f8a !important;
+    border-top: none !important; border-radius: 0 0 14px 14px !important; padding: 1rem 1.2rem !important;
 }
-
 hr { border-color: #2d1057 !important; }
-.stSuccess { background: #0a2015 !important; border-color: #166534 !important; color: #6ee7b7 !important; border-radius: 12px !important; }
+.stSuccess { background:#0a2015 !important; border-color:#166534 !important; color:#6ee7b7 !important; border-radius:12px !important; }
 .stAlert { border-radius: 12px !important; }
 </style>
 """, unsafe_allow_html=True)
 
-
-# ── Hero ──────────────────────────────────────────────────────────────────────
-st.markdown("""
-<div class='hero'>
-  <div class='hero-eyebrow'>✦ &nbsp; AI-Powered Document Library &nbsp; ✦</div>
-  <div class='hero-title'>Knowledge <em>Vault</em></div>
-  <div class='hero-sub'>Your documents, intelligently organised.</div>
-</div>
-""", unsafe_allow_html=True)
-
-# ── Intro box ─────────────────────────────────────────────────────────────────
-st.markdown("""
-<div class='intro-box'>
-  <div class='intro-title'>How it works</div>
-  <div class='intro-text'>
-    Stop drowning in a sea of unsorted PDFs, lecture notes, and articles.
-    Knowledge Vault reads every document you upload and automatically assigns it
-    <strong style='color:#e9d5ff'>subject tags</strong>, <strong style='color:#e9d5ff'>skill tags</strong>,
-    and a <strong style='color:#e9d5ff'>difficulty level</strong> — no manual effort needed.
-    When you want to learn something new, just search for it and the vault surfaces
-    exactly which documents to read, ranked by relevance.
-  </div>
-  <div class='intro-steps'>
-    <div class='intro-step'>
-      <div class='intro-step-icon'>📤</div>
-      <div class='intro-step-label'>Upload</div>
-      <div class='intro-step-desc'>Drop in any PDF, DOCX, or TXT</div>
-    </div>
-    <div class='intro-step'>
-      <div class='intro-step-icon'>🤖</div>
-      <div class='intro-step-label'>AI analyses</div>
-      <div class='intro-step-desc'>Tags subjects, skills & difficulty</div>
-    </div>
-    <div class='intro-step'>
-      <div class='intro-step-icon'>🔍</div>
-      <div class='intro-step-label'>Search</div>
-      <div class='intro-step-desc'>Find by concept, not just keyword</div>
-    </div>
-    <div class='intro-step'>
-      <div class='intro-step-icon'>📚</div>
-      <div class='intro-step-label'>Discover</div>
-      <div class='intro-step-desc'>Know exactly what to read</div>
-    </div>
-  </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ── Nav ───────────────────────────────────────────────────────────────────────
+# ── Session state ─────────────────────────────────────────────────────────────
 if "page" not in st.session_state:
-    st.session_state.page = "Upload"
+    st.session_state.page = "Home"
 
-pages     = ["Upload", "Search", "Library", "Browse by Tag"]
-icons     = ["📤", "🔍", "📚", "🏷️"]
-nav_cols  = st.columns(4)
+# ── Sidebar ───────────────────────────────────────────────────────────────────
+with st.sidebar:
+    st.markdown("<div class='sidebar-logo'>✦ Knowledge<br><span>Vault</span></div>", unsafe_allow_html=True)
+    st.markdown("<div class='sidebar-divider'></div>", unsafe_allow_html=True)
+    st.markdown("<div class='sidebar-section'>Navigate</div>", unsafe_allow_html=True)
 
-for i, (p, icon) in enumerate(zip(pages, icons)):
-    with nav_cols[i]:
-        label = f"{icon}\n\n{p}"
-        if st.button(label, key=f"nav_{p}"):
-            st.session_state.page = p
+    sidebar_pages = ["Home", "Search", "Library", "Browse by Tag"]
+    sidebar_icons = ["🏠", "🔍", "📚", "🏷️"]
+    options = [f"{icon}  {name}" for icon, name in zip(sidebar_icons, sidebar_pages)]
+
+    current_idx = sidebar_pages.index(st.session_state.page) if st.session_state.page in sidebar_pages else 0
+    choice = st.radio("nav", options, index=current_idx, label_visibility="collapsed")
+    chosen_page = sidebar_pages[options.index(choice)]
+    if chosen_page != st.session_state.page:
+        st.session_state.page = chosen_page
+        st.rerun()
+
+    st.markdown("<br><div class='sidebar-divider'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='padding:0 1.2rem;color:#4a1f8a;font-size:0.8rem;line-height:1.9;font-style:italic'>Upload once.<br>Find anything.<br>AI does the rest.</div>", unsafe_allow_html=True)
 
 page = st.session_state.page
-st.markdown("<hr style='margin:0.5rem 0 2rem'>", unsafe_allow_html=True)
-
-# Sidebar
-with st.sidebar:
-    st.markdown("<div style='font-family:Playfair Display,serif;font-size:1.4rem;font-weight:900;color:#f3e8ff;padding:0.5rem 0 0.25rem'>✦ Knowledge Vault</div>", unsafe_allow_html=True)
-    st.markdown("---")
-    sb = st.radio("Navigate", pages, index=pages.index(page), label_visibility="collapsed")
-    if sb != page:
-        st.session_state.page = sb
-        st.rerun()
-    st.markdown("---")
-    st.markdown("<div style='color:#4a1f8a;font-size:0.8rem;line-height:1.9;font-style:italic'>Upload once.<br>Find anything.<br>AI does the rest.</div>", unsafe_allow_html=True)
-
 
 # ══════════════════════════════════════════════════════════════════════════════
-# UPLOAD
+# HOME
 # ══════════════════════════════════════════════════════════════════════════════
-if page == "Upload":
+if page == "Home":
+    st.markdown("""
+    <div class='hero'>
+      <div class='hero-eyebrow'>✦ &nbsp; AI-Powered Document Library &nbsp; ✦</div>
+      <div class='hero-title'>Knowledge Vault</div>
+      <div class='hero-sub'>Your documents, intelligently organised.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Big centred upload button
+    st.markdown("<div class='upload-cta-wrap'><div class='upload-cta-label'>Get started</div></div>", unsafe_allow_html=True)
+    col_l, col_c, col_r = st.columns([2, 1.5, 2])
+    with col_c:
+        if st.button("✦  Upload a Document", type="primary", use_container_width=True):
+            st.session_state.page = "Upload"
+            st.rerun()
+
+    # Intro
+    st.markdown("""
+    <div class='intro-box' style='margin-top:3rem'>
+      <div class='intro-title'>How it works</div>
+      <div class='intro-text'>
+        Stop drowning in unsorted PDFs, lecture notes, and articles.
+        Knowledge Vault reads every document you upload and automatically assigns
+        <strong style='color:#e9d5ff'>subject tags</strong>,
+        <strong style='color:#e9d5ff'>skill tags</strong>, and a
+        <strong style='color:#e9d5ff'>difficulty level</strong> — no manual effort needed.
+        When you want to learn something new, just search and the vault surfaces
+        exactly which documents to read, ranked by relevance.
+      </div>
+      <div class='intro-steps'>
+        <div class='intro-step'>
+          <div class='intro-step-icon'>📤</div>
+          <div class='intro-step-label'>Upload</div>
+          <div class='intro-step-desc'>PDF, DOCX, or TXT</div>
+        </div>
+        <div class='intro-step'>
+          <div class='intro-step-icon'>🤖</div>
+          <div class='intro-step-label'>AI analyses</div>
+          <div class='intro-step-desc'>Tags subjects, skills & level</div>
+        </div>
+        <div class='intro-step'>
+          <div class='intro-step-icon'>🔍</div>
+          <div class='intro-step-label'>Search</div>
+          <div class='intro-step-desc'>Find by concept, not keyword</div>
+        </div>
+        <div class='intro-step'>
+          <div class='intro-step-icon'>📚</div>
+          <div class='intro-step-label'>Discover</div>
+          <div class='intro-step-desc'>Know exactly what to read</div>
+        </div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# UPLOAD (separate page reached from Home button or sidebar)
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "Upload":
     st.markdown("<div class='page-title'>Upload a document</div>", unsafe_allow_html=True)
-    st.markdown("<div class='hint'>Drop in a PDF, DOCX, or TXT — the AI will read it and automatically assign subjects, skills, and difficulty level. No manual tagging needed.</div>", unsafe_allow_html=True)
+    st.markdown("<div class='hint'>Drop in a PDF, DOCX, or TXT — the AI will read it and automatically assign subjects, skills, and difficulty. No manual tagging needed.</div>", unsafe_allow_html=True)
 
     uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx", "txt"], label_visibility="collapsed")
 
     if uploaded_file:
         st.markdown(f"<div style='color:#a78bfa;font-size:0.9rem;margin:0.6rem 0 0.9rem'>📄 &nbsp;{uploaded_file.name} &nbsp;·&nbsp; {uploaded_file.size // 1024} KB</div>", unsafe_allow_html=True)
 
-        if st.button("✦ Analyse & Add to Vault", type="primary"):
+        if st.button("✦  Analyse & Add to Vault", type="primary"):
             from pipeline.ingest import ingest_document
             file_bytes = uploaded_file.read()
             try:
-                with st.spinner("Reading and analysing your document… (15–20 seconds)"):
+                with st.spinner("Reading and analysing… (15–20 seconds)"):
                     result = ingest_document(file_bytes, uploaded_file.name)
 
                 st.success(f"✓ Added to vault — {result.filename}")
@@ -548,15 +470,14 @@ if page == "Upload":
             except Exception as e:
                 st.error(f"Something went wrong: {e}")
 
-
 # ══════════════════════════════════════════════════════════════════════════════
 # SEARCH
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "Search":
     st.markdown("<div class='page-title'>Search your vault</div>", unsafe_allow_html=True)
-    st.markdown("<div class='hint'>Describe what you want to learn or find. The AI understands meaning — so searching \"how transformers work\" will surface your attention mechanism notes even if those exact words don't appear in the document.</div>", unsafe_allow_html=True)
+    st.markdown("<div class='hint'>Describe what you want to learn. The AI finds relevant documents even without exact keyword matches.</div>", unsafe_allow_html=True)
 
-    query = st.text_input("What topic or skill are you looking for?", placeholder="e.g.  gradient descent  ·  probability distributions  ·  how sorting algorithms work", label_visibility="collapsed")
+    query = st.text_input("What topic or skill are you looking for?", placeholder="e.g.  gradient descent  ·  sorting algorithms  ·  probability distributions", label_visibility="collapsed")
 
     if query:
         from ai.embedder import embed
@@ -599,7 +520,6 @@ elif page == "Search":
                 </div>
                 """, unsafe_allow_html=True)
 
-
 # ══════════════════════════════════════════════════════════════════════════════
 # LIBRARY
 # ══════════════════════════════════════════════════════════════════════════════
@@ -639,7 +559,6 @@ elif page == "Library":
                             st.rerun()
                         except Exception as e:
                             st.error(f"Delete failed: {e}")
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 # BROWSE BY TAG
