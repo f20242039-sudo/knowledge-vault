@@ -3,8 +3,11 @@
 # UI
 streamlit>=1.35.0
 
-# AI — Groq API
+# AI — Groq API (cloud / BYOK)
 groq>=0.9.0
+
+# AI — Ollama (local inference)
+requests>=2.31.0   # used for Ollama HTTP calls (usually already installed)
 
 # Embeddings (runs locally, no API needed)
 sentence-transformers>=3.0.0
