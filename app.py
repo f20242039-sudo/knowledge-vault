@@ -305,6 +305,316 @@ with st.sidebar:
     st.markdown(f"<div style='padding:0 1.2rem;color:#4a1f8a;font-size:0.8rem;line-height:1.9;font-style:italic'>{tagline}</div>", unsafe_allow_html=True)
 
     st.markdown("<br><div class='sidebar-divider'></div><br>", unsafe_allow_html=True)
+    review_url = "https://docs.google.com/forms/d/e/1FAIpQLSd0vCbRpt_d0VluB1axjA4skCcmr-TA3eJ1A0RdWxt8PTYB1Q/viewform?usp=publish-editor"
+    st.markdown(
+        f"""<a href='{review_url}' target='_blank' style='display:block;margin:0 1rem;padding:0.65rem 1rem;background:linear-gradient(135deg,#7c3aed,#9333ea);color:#fff;font-family:Outfit,sans-serif;font-size:0.85rem;font-weight:600;text-align:center;text-decoration:none;border-radius:12px;letter-spacing:0.03em;box-shadow:0 4px 20px #9333ea55'>✦ &nbsp; Give a Review!</a>""",
+        unsafe_allow_html=True
+    )
+Run with: streamlit run app.py
+"""
+
+import streamlit as st
+from i18n import T, translate_tag, translate_difficulty
+
+st.set_page_config(
+    page_title="Knowledge Vault",
+    page_icon="✦",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@300;400;500;600&display=swap');
+
+html, body, [class*="css"] { font-family: 'Outfit', 'Noto Sans Telugu', 'Noto Sans Devanagari', sans-serif; }
+#MainMenu, footer, header { visibility: hidden; }
+
+.stApp {
+    background: linear-gradient(160deg, #1a0533 0%, #0f0221 50%, #1a0533 100%);
+    min-height: 100vh;
+}
+
+[data-testid="stSidebar"] {
+    background: #140328 !important;
+    border-right: 1px solid #4a1f8a !important;
+    width: 260px !important;
+}
+[data-testid="stSidebar"] > div { padding-top: 2rem; }
+
+.sidebar-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900; color: #f3e8ff;
+    padding: 0 1rem 1.5rem; letter-spacing: -0.01em;
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #9333ea, #e879f9);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.sidebar-divider {
+    height: 1px; background: linear-gradient(90deg, #4a1f8a, transparent);
+    margin: 0 1rem 1.5rem;
+}
+.sidebar-section {
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em;
+    color: #6d28d9; text-transform: uppercase; padding: 0 1.2rem 0.6rem;
+}
+
+[data-testid="stSidebar"] .stRadio > div { gap: 0.3rem; }
+[data-testid="stSidebar"] .stRadio label {
+    background: transparent !important; border: none !important;
+    border-radius: 10px !important; padding: 0.7rem 1.2rem !important;
+    color: #a78bfa !important; font-size: 0.95rem !important; font-weight: 500 !important;
+    cursor: pointer !important; display: flex !important; align-items: center !important;
+    gap: 0.6rem !important; transition: background 0.15s, color 0.15s !important; width: 100% !important;
+}
+[data-testid="stSidebar"] .stRadio label:hover { background: #2d1057 !important; color: #f3e8ff !important; }
+[data-testid="stSidebar"] .stRadio label[data-checked="true"] {
+    background: #2d1057 !important; color: #f3e8ff !important; border-left: 3px solid #9333ea !important;
+}
+
+.hero { text-align: center; padding: 3.5rem 0 1rem; }
+.hero-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; color: #7c3aed; text-transform: uppercase; margin-bottom: 1.2rem; }
+.hero-title {
+    font-family: 'Playfair Display', serif; font-size: 5.5rem; font-weight: 900; font-style: italic;
+    line-height: 1.0; margin: 0 0 0.8rem; letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #f3e8ff 0%, #c4b5fd 50%, #e879f9 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-title-indic {
+    font-family: 'Noto Sans Telugu', 'Noto Sans Devanagari', sans-serif;
+    font-size: 4rem; font-weight: 600; font-style: normal;
+    line-height: 1.2; margin: 0 0 0.8rem;
+    background: linear-gradient(135deg, #f3e8ff 0%, #c4b5fd 50%, #e879f9 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub { color: #a78bfa; font-size: 1.1rem; font-weight: 300; letter-spacing: 0.02em; }
+
+.intro-box {
+    background: linear-gradient(135deg, #2d1057 0%, #3b0f6e 100%);
+    border: 1px solid #6d28d9; border-radius: 24px; padding: 2.2rem 2.8rem;
+    margin: 2rem auto; max-width: 820px; position: relative; overflow: hidden;
+}
+.intro-box::before {
+    content:''; position:absolute; top:-60px; right:-60px;
+    width:200px; height:200px;
+    background: radial-gradient(circle, #9333ea22, transparent 70%); border-radius:50%;
+}
+.intro-title {
+    font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900;
+    font-style: italic; color: #f3e8ff; margin-bottom: 0.8rem;
+}
+.intro-title-indic {
+    font-family: 'Noto Sans Telugu', 'Noto Sans Devanagari', sans-serif;
+    font-size: 1.3rem; font-weight: 600; color: #f3e8ff; margin-bottom: 0.8rem;
+}
+.intro-text { color: #c4b5fd; font-size: 0.97rem; line-height: 1.85; font-weight: 300; }
+.intro-steps { display: flex; gap: 1rem; margin-top: 1.8rem; flex-wrap: wrap; }
+.intro-step {
+    flex: 1; min-width: 140px; background: #1a0533; border: 1px solid #4a1f8a;
+    border-radius: 14px; padding: 1.1rem 1rem; text-align: center;
+}
+.intro-step-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.intro-step-label { font-size: 0.82rem; font-weight: 600; color: #e9d5ff; letter-spacing: 0.03em; }
+.intro-step-desc  { font-size: 0.75rem; color: #7c5cbf; margin-top: 0.25rem; font-weight: 300; }
+
+.upload-cta-wrap { display: flex; flex-direction: column; align-items: center; margin: 2.5rem 0 1rem; }
+.upload-cta-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; color: #6d28d9; text-transform: uppercase; margin-bottom: 1rem; }
+
+.stButton > button[kind="primary"] {
+    background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%) !important;
+    color: #fff !important; border: none !important; border-radius: 20px !important;
+    font-family: 'Outfit', 'Noto Sans Telugu', 'Noto Sans Devanagari', sans-serif !important;
+    font-weight: 700 !important; font-size: 1.3rem !important; padding: 1.2rem 3.5rem !important;
+    letter-spacing: 0.04em !important;
+    box-shadow: 0 8px 40px #9333ea66, 0 0 0 1px #a855f744 !important;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s !important;
+    width: auto !important; min-width: 260px !important;
+}
+.stButton > button[kind="primary"]:hover {
+    transform: translateY(-5px) scale(1.03) !important;
+    box-shadow: 0 16px 56px #9333ea99, 0 0 0 2px #a855f766 !important;
+}
+.stButton > button[kind="secondary"] {
+    background: transparent !important; border: 1px solid #4a1f8a !important;
+    border-radius: 10px !important; color: #a78bfa !important;
+    font-family: 'Outfit', 'Noto Sans Telugu', 'Noto Sans Devanagari', sans-serif !important;
+    font-size: 0.85rem !important; font-weight: 500 !important;
+    transition: all 0.15s !important; box-shadow: none !important;
+}
+.stButton > button[kind="secondary"]:hover {
+    border-color: #9333ea !important; color: #f3e8ff !important;
+    background: #2d1057 !important; box-shadow: none !important;
+}
+
+.vault-card {
+    background: #230a42; border: 1px solid #4a1f8a; border-radius: 18px;
+    padding: 1.5rem 1.8rem; margin-bottom: 1rem; position: relative; overflow: hidden;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s, border-color 0.2s;
+}
+.vault-card::before {
+    content:''; position:absolute; top:0; left:0; width:4px; height:100%;
+    background: linear-gradient(180deg, #9333ea, #e879f9); opacity:0; transition: opacity 0.2s;
+}
+.vault-card:hover { transform: translateY(-4px); border-color: #9333ea55; box-shadow: 0 12px 40px #9333ea22; }
+.vault-card:hover::before { opacity: 1; }
+
+.card-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; font-style: italic; color: #f3e8ff; margin-bottom: 6px; }
+.card-desc  { color: #a78bfa; font-size: 0.88rem; line-height: 1.7; font-weight: 300; }
+
+.tag-subject {
+    display: inline-block; background: #2d1057; color: #e9d5ff; border: 1px solid #6d28d9;
+    border-radius: 6px; padding: 3px 11px; font-size: 0.75rem; font-weight: 500; margin: 3px; letter-spacing: 0.02em;
+}
+.tag-skill {
+    display: inline-block; background: #1a0533; color: #c4b5fd; border: 1px solid #4a1f8a;
+    border-radius: 6px; padding: 3px 11px; font-size: 0.75rem; font-weight: 500; margin: 3px; letter-spacing: 0.02em;
+}
+.tag-difficulty-Beginner     { background:#0a2015; color:#6ee7b7; border:1px solid #166534; }
+.tag-difficulty-Intermediate { background:#1c1000; color:#fcd34d; border:1px solid #854d0e; }
+.tag-difficulty-Advanced     { background:#200a33; color:#e879f9; border:1px solid #6d28d9; }
+.difficulty-badge { display:inline-block; border-radius:8px; padding:4px 13px; font-size:0.73rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; }
+
+.bar-bg  { background:#2d1057; border-radius:4px; height:5px; width:100%; margin-top:6px; }
+.bar-fill{ background: linear-gradient(90deg, #7c3aed, #e879f9); border-radius:4px; height:5px; }
+
+.section-label { font-size:0.68rem; font-weight:700; letter-spacing:0.15em; color:#7c5cbf; text-transform:uppercase; margin-bottom:0.6rem; }
+.page-title { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:900; font-style:italic; color:#f3e8ff; margin-bottom:0.6rem; }
+.page-title-indic { font-family:'Noto Sans Telugu','Noto Sans Devanagari',sans-serif; font-size:2rem; font-weight:600; color:#f3e8ff; margin-bottom:0.6rem; }
+.hint { color:#a78bfa; font-size:0.95rem; margin-bottom:1.5rem; font-weight:300; line-height:1.8; }
+.empty-state { color:#4a1f8a; font-size:1rem; margin-top:3rem; text-align:center; font-style:italic; }
+
+.stTextInput > div > div > input {
+    background:#230a42 !important; border:1px solid #4a1f8a !important; border-radius:12px !important;
+    color:#f3e8ff !important; font-family:'Outfit','Noto Sans Telugu','Noto Sans Devanagari',sans-serif !important;
+    font-size:1rem !important; padding:0.7rem 1rem !important;
+}
+.stTextInput > div > div > input:focus { border-color:#9333ea !important; box-shadow:0 0 0 3px #9333ea33 !important; }
+.stTextInput > div > div > input::placeholder { color:#7c5cbf !important; }
+
+[data-testid="stFileUploader"] { background:#230a42 !important; border:1px dashed #4a1f8a !important; border-radius:16px !important; }
+[data-testid="stFileUploader"]:hover { border-color:#9333ea !important; }
+
+details > summary {
+    background:#230a42 !important; border:1px solid #4a1f8a !important; border-radius:14px !important;
+    color:#f3e8ff !important; font-family:'Playfair Display',serif !important; font-size:1rem !important;
+    font-weight:900 !important; padding:0.9rem 1.2rem !important;
+}
+details[open] > summary { border-radius:14px 14px 0 0 !important; }
+details > div {
+    background:#1a0533 !important; border:1px solid #4a1f8a !important; border-top:none !important;
+    border-radius:0 0 14px 14px !important; padding:1rem 1.2rem !important;
+}
+hr { border-color:#2d1057 !important; }
+.stSuccess { background:#0a2015 !important; border-color:#166534 !important; color:#6ee7b7 !important; border-radius:12px !important; }
+.stAlert   { border-radius:12px !important; }
+</style>
+""", unsafe_allow_html=True)
+
+# ── Session state ──────────────────────────────────────────────────────────────
+if "page" not in st.session_state:
+    st.session_state.page = "Home"
+if "lang" not in st.session_state:
+    st.session_state.lang = "en"
+
+lang = st.session_state.lang
+is_indic = lang in ("te", "hi")
+
+# ── Sidebar ────────────────────────────────────────────────────────────────────
+with st.sidebar:
+    st.markdown("<div class='sidebar-logo'>✦ Knowledge<br><span>Vault</span></div>", unsafe_allow_html=True)
+    st.markdown("<div class='sidebar-divider'></div>", unsafe_allow_html=True)
+
+    # ── Language toggle ────────────────────────────────────────────────────────
+    st.markdown(f"<div class='sidebar-section'>{T('lang_label')}</div>", unsafe_allow_html=True)
+    lang_choice = st.radio(
+        "lang_radio",
+        ["🇬🇧  English", "🇮🇳  తెలుగు", "🇮🇳  हिंदी"],
+        index={"en": 0, "te": 1, "hi": 2}.get(lang, 0),
+        label_visibility="collapsed",
+        key="lang_radio",
+    )
+    new_lang = {"🇬🇧  English": "en", "🇮🇳  తెలుగు": "te", "🇮🇳  हिंदी": "hi"}[lang_choice]
+    if new_lang != st.session_state.lang:
+        st.session_state.lang = new_lang
+        st.rerun()
+
+    st.markdown("<br><div class='sidebar-divider'></div>", unsafe_allow_html=True)
+
+    # ── Navigation ─────────────────────────────────────────────────────────────
+    st.markdown(f"<div class='sidebar-section'>{T('nav_label')}</div>", unsafe_allow_html=True)
+
+    sidebar_pages = ["Home", "Upload", "Search", "Library", "Browse by Tag"]
+    nav_labels = [T("nav_home"), T("nav_upload"), T("nav_search"), T("nav_library"), T("nav_browse")]
+
+    current_idx = sidebar_pages.index(st.session_state.page) if st.session_state.page in sidebar_pages else 0
+    choice = st.radio("nav", nav_labels, index=current_idx, label_visibility="collapsed")
+    chosen_page = sidebar_pages[nav_labels.index(choice)]
+    if chosen_page != st.session_state.page:
+        st.session_state.page = chosen_page
+        st.rerun()
+
+    # ── AI Provider ────────────────────────────────────────────────────────────
+    st.markdown("<br><div class='sidebar-divider'></div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sidebar-section'>{T('ai_provider')}</div>", unsafe_allow_html=True)
+
+    provider = st.radio(
+        "provider_select",
+        ["☁️  Groq (Cloud)", "🖥️  Ollama (Local)"],
+        index=0 if st.session_state.get("ai_provider", "groq") == "groq" else 1,
+        label_visibility="collapsed",
+        key="provider_radio",
+    )
+    is_groq = provider.startswith("☁️")
+    st.session_state.ai_provider = "groq" if is_groq else "ollama"
+
+    if is_groq:
+        import os
+        env_key = os.getenv("GROQ_API_KEY", "")
+        groq_key = st.text_input(
+            "Groq API Key",
+            value=st.session_state.get("groq_api_key", env_key),
+            type="password",
+            placeholder="gsk_…",
+            help="Your key is only stored in session memory.",
+        )
+        st.session_state.groq_api_key = groq_key
+        groq_model = st.text_input(
+            "Model",
+            value=st.session_state.get("groq_model", "llama-3.3-70b-versatile"),
+            placeholder="llama-3.3-70b-versatile",
+        )
+        st.session_state.groq_model = groq_model
+        if groq_key:
+            st.markdown(f"<div style='color:#6ee7b7;font-size:0.75rem;margin-top:0.3rem'>{T('key_set')}</div>", unsafe_allow_html=True)
+        else:
+            st.markdown(f"<div style='color:#f87171;font-size:0.75rem;margin-top:0.3rem'>{T('no_key')}</div>", unsafe_allow_html=True)
+    else:
+        ollama_url = st.text_input(
+            "Ollama base URL",
+            value=st.session_state.get("ollama_url", "http://localhost:11434"),
+            placeholder="http://localhost:11434",
+        )
+        st.session_state.ollama_url = ollama_url
+        ollama_model = st.text_input(
+            "Model",
+            value=st.session_state.get("ollama_model", "llama3.2"),
+            placeholder="llama3.2",
+        )
+        st.session_state.ollama_model = ollama_model
+        st.markdown(
+            f"<div style='padding:0 0.2rem;color:#7c5cbf;font-size:0.75rem;margin-top:0.4rem;line-height:1.7'>"
+            f"{T('ollama_hint')}<br>"
+            f"<code style='font-size:0.7rem;color:#9333ea'>ollama pull llama3.2</code></div>",
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("<br><div class='sidebar-divider'></div>", unsafe_allow_html=True)
+    tagline = T("tagline").replace("\n", "<br>")
+    st.markdown(f"<div style='padding:0 1.2rem;color:#4a1f8a;font-size:0.8rem;line-height:1.9;font-style:italic'>{tagline}</div>", unsafe_allow_html=True)
+
+    st.markdown("<br><div class='sidebar-divider'></div><br>", unsafe_allow_html=True)
     st.markdown("""
     <a href='https://docs.google.com/forms/d/e/1FAIpQLSd0vCbRpt_d0VluB1axjA4skCcmr-TA3eJ1A0RdWxt8PTYB1Q/viewform?usp=publish-editor'
        target='_blank'
