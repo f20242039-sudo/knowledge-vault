@@ -304,6 +304,30 @@ with st.sidebar:
     tagline = T("tagline").replace("\n", "<br>")
     st.markdown(f"<div style='padding:0 1.2rem;color:#4a1f8a;font-size:0.8rem;line-height:1.9;font-style:italic'>{tagline}</div>", unsafe_allow_html=True)
 
+    st.markdown("<br><div class='sidebar-divider'></div><br>", unsafe_allow_html=True)
+    st.markdown("""
+    <a href='https://docs.google.com/forms/d/e/1FAIpQLSd0vCbRpt_d0VluB1axjA4skCcmr-TA3eJ1A0RdWxt8PTYB1Q/viewform?usp=publish-editor'
+       target='_blank'
+       style='
+         display: block;
+         margin: 0 1rem;
+         padding: 0.65rem 1rem;
+         background: linear-gradient(135deg, #7c3aed, #9333ea);
+         color: #fff !important;
+         font-family: Outfit, sans-serif;
+         font-size: 0.85rem;
+         font-weight: 600;
+         text-align: center;
+         text-decoration: none;
+         border-radius: 12px;
+         letter-spacing: 0.03em;
+         box-shadow: 0 4px 20px #9333ea55;
+       '
+    >
+      ✦ &nbsp; Give a Review!
+    </a>
+    """, unsafe_allow_html=True)
+
 
 def _get_provider_cfg() -> dict:
     if st.session_state.get("ai_provider", "groq") == "groq":
